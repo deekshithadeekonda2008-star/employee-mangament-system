@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Profile Details - EMS</title>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- App Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/employees.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">
+                    <div class="brand-icon"><i class="fa-solid fa-users-gear"></i></div>
+                    <span>EmployEase</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">General</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fa-solid fa-gauge-high"></i> Dashboard
+                </a>
+                <a href="employees.html" class="nav-link active">
+                    <i class="fa-solid fa-id-card"></i> Employees
+                </a>
+                <a href="departments.html" class="nav-link">
+                    <i class="fa-solid fa-sitemap"></i> Departments
+                </a>
+
+                <div class="nav-section-label">Operations</div>
+                <a href="attendance.html" class="nav-link">
+                    <i class="fa-solid fa-calendar-check"></i> Attendance
+                </a>
+                <a href="leave-management.html" class="nav-link">
+                    <i class="fa-solid fa-umbrella-beach"></i> Leave Management
+                </a>
+                <a href="payroll.html" class="nav-link">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Payroll
+                </a>
+
+                <div class="nav-section-label">Analytics & User</div>
+                <a href="reports.html" class="nav-link">
+                    <i class="fa-solid fa-chart-pie"></i> Reports
+                </a>
+                <a href="profile.html" class="nav-link">
+                    <i class="fa-solid fa-user-gear"></i> My Profile
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-badge-compact">
+                    <div class="user-avatar-sm">U</div>
+                    <div class="user-info-text">
+                        <div class="user-name">Loading...</div>
+                        <div class="user-role-label">Role</div>
+                    </div>
+                </div>
+                <button class="btn-sidebar-logout" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="btn-mobile-toggle" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <a href="employees.html" class="btn btn-secondary btn-sm" style="margin-right: 0.75rem;">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Directory
+                    </a>
+                    <h1 class="page-title">Employee Details</h1>
+                </div>
+
+                <div class="topbar-right" id="detail-actions-bar">
+                    <!-- Injected dynamically based on permissions -->
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <main class="content-body">
+                <!-- Profile Banner Card -->
+                <div class="profile-banner-card" id="profile-banner">
+                    <div class="profile-banner-left">
+                        <div id="banner-avatar-wrap">
+                            <div class="profile-banner-avatar-placeholder">E</div>
+                        </div>
+                        <div class="profile-banner-info">
+                            <h2 id="banner-full-name">Loading Profile...</h2>
+                            <div class="profile-banner-role" id="banner-title-dept">—</div>
+                            <div class="profile-banner-badges">
+                                <span class="badge badge-info" id="banner-emp-code">—</span>
+                                <span class="badge badge-success" id="banner-status-badge">—</span>
+                                <span class="badge badge-neutral" id="banner-type-badge">—</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-banner-actions" id="banner-action-buttons">
+                        <!-- Injected dynamically -->
+                    </div>
+                </div>
+
+                <!-- Tabs Navigation -->
+                <div class="details-tabs-header">
+                    <button class="tab-btn active" data-tab="overview">
+                        <i class="fa-solid fa-circle-info"></i> Overview
+                    </button>
+                    <button class="tab-btn" data-tab="attendance">
+                        <i class="fa-solid fa-calendar-check"></i> Attendance History
+                    </button>
+                    <button class="tab-btn" data-tab="leaves">
+                        <i class="fa-solid fa-umbrella-beach"></i> Leave History
+                    </button>
+                    <button class="tab-btn" data-tab="payroll">
+                        <i class="fa-solid fa-file-invoice-dollar"></i> Payroll Records
+                    </button>
+                </div>
+
+                <!-- Tab 1: Overview -->
+                <div id="tab-overview" class="tab-pane active">
+                    <div class="card">
+                        <h3 class="card-title" style="margin-bottom: 1.25rem;">Employment & Organizational Data</h3>
+                        <div class="info-fields-grid">
+                            <div class="info-field-item">
+                                <div class="info-field-label">Department</div>
+                                <div class="info-field-value" id="field-dept">—</div>
+                            </div>
+                            <div class="info-field-item">
+                                <div class="info-field-label">Job Title</div>
+                                <div class="info-field-value" id="field-job-title">—</div>
+                            </div>
+                            <div class="info-field-item">
+                                <div class="info-field-label">Reporting Manager</div>
+                                <div class="info-field-value" id="field-manager">—</div>
+                            </div>
+                            <div class="info-field-item">
+                                <div class="info-field-label">Date of Joining</div>
+                                <div class="info-field-value" id="field-joining-date">—</div>
+                            </div>
+                            <div class="info-field-item">
+                                <div class="info-field-label">Employment Type</div>
+                                <div class="info-field-value" id="field-type">—</div>
+                            </div>
+                            <div class="info-field-item">
+                                <div class="info-field-label">Base Salary Reference</div>
+                                <div class="info-field-value" id="field-salary">—</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title" style="margin-bottom: 1.25rem;">Personal & Contact Information</h3>
+                        <div class="info-fields-grid">
+                            <div class="info-field-item">
+                                <div class="info-field-label">Email Address</div>
+                                <div class="info-field-value" id="field-email">—</div>
+                            </div>
+                            <div class="info-field-item">
+                                <div class="info-field-label">Phone Number</div>
+                                <div class="info-field-value" id="field-phone">—</div>
+                            </div>
+                            <div class="info-field-item">
+                                <div class="info-field-label">Date of Birth</div>
+                                <div class="info-field-value" id="field-dob">—</div>
+                            </div>
+                            <div class="info-field-item">
+                                <div class="info-field-label">Gender</div>
+                                <div class="info-field-value" id="field-gender">—</div>
+                            </div>
+                            <div class="info-field-item" style="grid-column: 1 / -1;">
+                                <div class="info-field-label">Residential Address</div>
+                                <div class="info-field-value" id="field-address">—</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Attendance History -->
+                <div id="tab-attendance" class="tab-pane">
+                    <div class="card" style="padding: 0; overflow: hidden;">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Check In</th>
+                                        <th>Check Out</th>
+                                        <th>Status</th>
+                                        <th>Working Duration</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="emp-att-table-body">
+                                    <tr><td colspan="6" style="text-align: center; padding: 2rem;"><div class="spinner"></div></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Leave History -->
+                <div id="tab-leaves" class="tab-pane">
+                    <div class="card" style="padding: 0; overflow: hidden;">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Days</th>
+                                        <th>Reason</th>
+                                        <th>Status</th>
+                                        <th>Decision Feedback</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="emp-leaves-table-body">
+                                    <tr><td colspan="7" style="text-align: center; padding: 2rem;"><div class="spinner"></div></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 4: Payroll Records -->
+                <div id="tab-payroll" class="tab-pane">
+                    <div class="card" style="padding: 0; overflow: hidden;">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Period</th>
+                                        <th>Basic Salary</th>
+                                        <th>Allowances & Bonus</th>
+                                        <th>Deductions</th>
+                                        <th>Net Salary</th>
+                                        <th>Status</th>
+                                        <th>Statement</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="emp-payroll-table-body">
+                                    <tr><td colspan="7" style="text-align: center; padding: 2rem;"><div class="spinner"></div></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        let currentEmployee = null;
+        const urlParams = new URLSearchParams(window.location.search);
+        const employeeId = urlParams.get('id');
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            Auth.guard();
+            setupTabNavigation();
+
+            if (!employeeId) {
+                showToast('error', 'Missing ID', 'No employee ID provided.');
+                setTimeout(() => window.location.href = 'employees.html', 1500);
+                return;
+            }
+
+            await loadEmployeeDetails();
+        });
+
+        function setupTabNavigation() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabs.forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+
+                    btn.classList.add('active');
+                    const targetTab = btn.getAttribute('data-tab');
+                    const pane = document.getElementById(`tab-${targetTab}`);
+                    if (pane) pane.classList.add('active');
+
+                    // Lazy load tab data
+                    if (targetTab === 'attendance') loadEmployeeAttendance();
+                    if (targetTab === 'leaves') loadEmployeeLeaves();
+                    if (targetTab === 'payroll') loadEmployeePayroll();
+                });
+            });
+        }
+
+        async function loadEmployeeDetails() {
+            try {
+                const response = await API.get(`/employees/${employeeId}`);
+                if (response.success && response.data?.employee) {
+                    currentEmployee = response.data.employee;
+                    renderDetails(currentEmployee);
+                }
+            } catch (err) {
+                showToast('error', 'Error', err.message || 'Failed to retrieve employee record.');
+            }
+        }
+
+        function renderDetails(emp) {
+            // Banner
+            document.getElementById('banner-full-name').textContent = `${emp.first_name} ${emp.last_name}`;
+            document.getElementById('banner-title-dept').textContent = `${emp.job_title} • ${emp.departments?.name || 'General'}`;
+            document.getElementById('banner-emp-code').textContent = emp.employee_code;
+            document.getElementById('banner-status-badge').textContent = emp.employment_status;
+            document.getElementById('banner-type-badge').textContent = emp.employment_type;
+
+            const avatarWrap = document.getElementById('banner-avatar-wrap');
+            if (emp.profile_photo_url) {
+                avatarWrap.innerHTML = `<img src="${emp.profile_photo_url}" class="profile-banner-avatar" alt="Photo" onerror="this.outerHTML='<div class=\\'profile-banner-avatar-placeholder\\'>${emp.first_name.charAt(0)}</div>'">`;
+            } else {
+                avatarWrap.innerHTML = `<div class="profile-banner-avatar-placeholder">${emp.first_name.charAt(0)}</div>`;
+            }
+
+            // Overview Fields
+            document.getElementById('field-dept').textContent = emp.departments?.name || 'General / Unassigned';
+            document.getElementById('field-job-title').textContent = emp.job_title;
+            document.getElementById('field-manager').textContent = emp.manager ? `${emp.manager.first_name} ${emp.manager.last_name} (${emp.manager.employee_code})` : 'None (Reports to Executive)';
+            document.getElementById('field-joining-date').textContent = formatDate(emp.joining_date);
+            document.getElementById('field-type').textContent = emp.employment_type;
+            document.getElementById('field-salary').textContent = emp.basic_salary !== undefined ? `${formatCurrency(emp.basic_salary)} / yr` : '[RESTRICTED]';
+
+            document.getElementById('field-email').textContent = emp.email;
+            document.getElementById('field-phone').textContent = emp.phone || 'N/A';
+            document.getElementById('field-dob').textContent = emp.date_of_birth ? formatDate(emp.date_of_birth) : 'N/A';
+            document.getElementById('field-gender').textContent = emp.gender || 'Not specified';
+            document.getElementById('field-address').textContent = emp.address || 'No address provided.';
+
+            // Actions bar
+            const currentUser = Auth.getCurrentUser();
+            const canManage = currentUser && ['Admin', 'HR Manager'].includes(currentUser.role);
+            const actionsWrap = document.getElementById('banner-action-buttons');
+
+            if (canManage && actionsWrap) {
+                actionsWrap.innerHTML = `
+                    <button class="btn ${emp.employment_status === 'Active' ? 'btn-outline-danger' : 'btn-success'}" onclick="toggleStatus()">
+                        <i class="fa-solid ${emp.employment_status === 'Active' ? 'fa-user-slash' : 'fa-user-check'}"></i>
+                        ${emp.employment_status === 'Active' ? 'Deactivate Employee' : 'Activate Employee'}
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteCurrentEmployee()">
+                        <i class="fa-solid fa-trash-can"></i> Delete Employee
+                    </button>
+                `;
+            }
+        }
+
+        async function loadEmployeeAttendance() {
+            const tbody = document.getElementById('emp-att-table-body');
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem;"><div class="spinner"></div></td></tr>';
+            try {
+                const response = await API.get('/attendance', { employee_id: employeeId, limit: 30 });
+                if (response.success && response.data?.records) {
+                    const records = response.data.records;
+                    if (records.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--navy-500); padding: 2rem;">No attendance records found for this employee.</td></tr>';
+                        return;
+                    }
+                    tbody.innerHTML = records.map(r => `
+                        <tr>
+                            <td><strong>${formatDate(r.attendance_date)}</strong></td>
+                            <td>${formatTime(r.check_in)}</td>
+                            <td>${formatTime(r.check_out)}</td>
+                            <td><span class="badge ${r.status === 'Present' ? 'badge-success' : 'badge-warning'}">${r.status}</span></td>
+                            <td>${(r.working_minutes / 60).toFixed(1)} hrs</td>
+                            <td>${escapeHtml(r.remarks || '—')}</td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--danger);">${escapeHtml(err.message)}</td></tr>`;
+            }
+        }
+
+        async function loadEmployeeLeaves() {
+            const tbody = document.getElementById('emp-leaves-table-body');
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 2rem;"><div class="spinner"></div></td></tr>';
+            try {
+                const response = await API.get('/leaves', { employee_id: employeeId });
+                if (response.success && response.data?.leaves) {
+                    const leaves = response.data.leaves;
+                    if (leaves.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--navy-500); padding: 2rem;">No leave requests filed.</td></tr>';
+                        return;
+                    }
+                    tbody.innerHTML = leaves.map(l => `
+                        <tr>
+                            <td><span class="badge badge-info">${escapeHtml(l.leave_type)}</span></td>
+                            <td>${formatDate(l.start_date)}</td>
+                            <td>${formatDate(l.end_date)}</td>
+                            <td><strong>${l.leave_days}d</strong></td>
+                            <td>${escapeHtml(l.reason)}</td>
+                            <td><span class="badge ${l.status === 'Approved' ? 'badge-success' : (l.status === 'Pending' ? 'badge-warning' : 'badge-danger')}">${l.status}</span></td>
+                            <td>${escapeHtml(l.reviewer_comments || '—')}</td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--danger);">${escapeHtml(err.message)}</td></tr>`;
+            }
+        }
+
+        async function loadEmployeePayroll() {
+            const tbody = document.getElementById('emp-payroll-table-body');
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 2rem;"><div class="spinner"></div></td></tr>';
+            try {
+                const response = await API.get('/payroll', { employee_id: employeeId });
+                if (response.success && response.data?.records) {
+                    const records = response.data.records;
+                    if (records.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--navy-500); padding: 2rem;">No payroll statements issued yet.</td></tr>';
+                        return;
+                    }
+                    tbody.innerHTML = records.map(p => `
+                        <tr>
+                            <td><strong>${p.pay_month}/${p.pay_year}</strong></td>
+                            <td>${formatCurrency(p.basic_salary)}</td>
+                            <td>${formatCurrency(p.allowances + p.bonus)}</td>
+                            <td><span style="color: var(--danger);">${formatCurrency(p.deductions)}</span></td>
+                            <td><strong style="color: var(--navy-900);">${formatCurrency(p.net_salary)}</strong></td>
+                            <td><span class="badge ${p.payment_status === 'Paid' ? 'badge-success' : 'badge-warning'}">${p.payment_status}</span></td>
+                            <td>
+                                <a href="payroll.html" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-invoice"></i> View</a>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--danger);">${escapeHtml(err.message)}</td></tr>`;
+            }
+        }
+
+        window.toggleStatus = async () => {
+            if (!currentEmployee) return;
+            const newStatus = currentEmployee.employment_status === 'Active' ? 'Inactive' : 'Active';
+            const action = currentEmployee.employment_status === 'Active' ? 'deactivate' : 'activate';
+
+            const confirmed = await confirmDialog({
+                title: `${action.toUpperCase()} Employee`,
+                message: `Are you sure you want to ${action} ${currentEmployee.first_name} ${currentEmployee.last_name}?`,
+                confirmText: action.toUpperCase(),
+                confirmClass: currentEmployee.employment_status === 'Active' ? 'btn-danger' : 'btn-success'
+            });
+
+            if (!confirmed) return;
+
+            try {
+                await API.patch(`/employees/${currentEmployee.id}/status`, { status: newStatus });
+                showToast('success', 'Status Updated', `Employee marked as ${newStatus}.`);
+                await loadEmployeeDetails();
+            } catch (err) {
+                showToast('error', 'Error', err.message);
+            }
+        };
+
+        window.deleteCurrentEmployee = async () => {
+            if (!currentEmployee) return;
+
+            const fullName = `${currentEmployee.first_name || ''} ${currentEmployee.last_name || ''}`.trim();
+            const confirmed = await confirmDialog({
+                title: 'Delete Employee Record',
+                message: `Are you sure you want to permanently delete ${fullName} (${currentEmployee.employee_code || currentEmployee.id})? This will permanently delete all attendance, leave, and payroll records. This action cannot be undone.`,
+                confirmText: 'Delete Employee',
+                confirmClass: 'btn-danger'
+            });
+
+            if (!confirmed) return;
+
+            try {
+                await API.delete(`/employees/${currentEmployee.id}`);
+                showToast('success', 'Employee Deleted', `${fullName} has been removed.`);
+                setTimeout(() => {
+                    window.location.href = 'employees.html';
+                }, 1000);
+            } catch (err) {
+                showToast('error', 'Delete Failed', err.message || 'Could not delete employee record.');
+            }
+        };
+    </script>
+</body>
+</html>

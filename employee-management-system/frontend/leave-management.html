@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Management - Employee Management System</title>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- App Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">
+                    <div class="brand-icon"><i class="fa-solid fa-users-gear"></i></div>
+                    <span>EmployEase</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">General</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fa-solid fa-gauge-high"></i> Dashboard
+                </a>
+                <a href="employees.html" class="nav-link">
+                    <i class="fa-solid fa-id-card"></i> Employees
+                </a>
+                <a href="departments.html" class="nav-link">
+                    <i class="fa-solid fa-sitemap"></i> Departments
+                </a>
+
+                <div class="nav-section-label">Operations</div>
+                <a href="attendance.html" class="nav-link">
+                    <i class="fa-solid fa-calendar-check"></i> Attendance
+                </a>
+                <a href="leave-management.html" class="nav-link active">
+                    <i class="fa-solid fa-umbrella-beach"></i> Leave Management
+                </a>
+                <a href="payroll.html" class="nav-link">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Payroll
+                </a>
+
+                <div class="nav-section-label">Analytics & User</div>
+                <a href="reports.html" class="nav-link">
+                    <i class="fa-solid fa-chart-pie"></i> Reports
+                </a>
+                <a href="profile.html" class="nav-link">
+                    <i class="fa-solid fa-user-gear"></i> My Profile
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-badge-compact">
+                    <div class="user-avatar-sm">U</div>
+                    <div class="user-info-text">
+                        <div class="user-name">Loading...</div>
+                        <div class="user-role-label">Role</div>
+                    </div>
+                </div>
+                <button class="btn-sidebar-logout" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="btn-mobile-toggle" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">Leave Applications</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <button id="btn-request-leave" class="btn btn-primary">
+                        <i class="fa-solid fa-calendar-plus"></i> Request Leave
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <main class="content-body">
+                <!-- Status Metrics Strip -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem;">
+                    <div class="card" style="padding: 1.25rem; margin-bottom: 0; display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <span class="metric-label">Pending Approval</span>
+                            <div style="font-size: 1.75rem; font-weight: 700; color: var(--warning);" id="stat-pending-leaves">0</div>
+                        </div>
+                        <div style="width: 42px; height: 42px; border-radius: var(--radius-md); background-color: var(--warning-bg); color: var(--warning); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                            <i class="fa-solid fa-hourglass-half"></i>
+                        </div>
+                    </div>
+
+                    <div class="card" style="padding: 1.25rem; margin-bottom: 0; display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <span class="metric-label">Approved Requests</span>
+                            <div style="font-size: 1.75rem; font-weight: 700; color: var(--success);" id="stat-approved-leaves">0</div>
+                        </div>
+                        <div style="width: 42px; height: 42px; border-radius: var(--radius-md); background-color: var(--success-bg); color: var(--success); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                            <i class="fa-solid fa-check-double"></i>
+                        </div>
+                    </div>
+
+                    <div class="card" style="padding: 1.25rem; margin-bottom: 0; display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <span class="metric-label">Rejected Requests</span>
+                            <div style="font-size: 1.75rem; font-weight: 700; color: var(--danger);" id="stat-rejected-leaves">0</div>
+                        </div>
+                        <div style="width: 42px; height: 42px; border-radius: var(--radius-md); background-color: var(--danger-bg); color: var(--danger); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                            <i class="fa-solid fa-ban"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters Toolbar -->
+                <div class="filter-toolbar">
+                    <div class="filter-group-left">
+                        <select id="filter-leave-status" class="filter-select">
+                            <option value="">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+
+                        <select id="filter-leave-type" class="filter-select">
+                            <option value="">All Leave Types</option>
+                            <option value="Casual Leave">Casual Leave</option>
+                            <option value="Sick Leave">Sick Leave</option>
+                            <option value="Earned Leave">Earned Leave</option>
+                            <option value="Unpaid Leave">Unpaid Leave</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Leave Table -->
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Leave Type</th>
+                                    <th>Date Interval</th>
+                                    <th>Days</th>
+                                    <th>Reason / Notes</th>
+                                    <th>Status</th>
+                                    <th style="text-align: right; padding-right: 1.5rem;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaves-table-body">
+                                <tr><td colspan="7" style="text-align: center; padding: 2rem;"><div class="spinner"></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Request Leave Modal -->
+    <div id="modal-leave-request" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title">Submit Leave Request</h3>
+                <button class="modal-close" id="modal-leave-close">&times;</button>
+            </div>
+            <form id="form-leave-request">
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="form-group form-grid-full">
+                            <label for="leave-type-select" class="form-label">Leave Category <span class="required-star">*</span></label>
+                            <select id="leave-type-select" class="form-control" required>
+                                <option value="Casual Leave">Casual Leave</option>
+                                <option value="Sick Leave">Sick Leave</option>
+                                <option value="Earned Leave">Earned Leave</option>
+                                <option value="Unpaid Leave">Unpaid Leave</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="leave-start-date" class="form-label">Start Date <span class="required-star">*</span></label>
+                            <input type="date" id="leave-start-date" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="leave-end-date" class="form-label">End Date <span class="required-star">*</span></label>
+                            <input type="date" id="leave-end-date" class="form-control" required>
+                        </div>
+
+                        <div class="form-group form-grid-full" style="background-color: var(--navy-50); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--navy-200);">
+                            <span style="font-size: 0.82rem; color: var(--navy-600);">Calculated Total Duration:</span>
+                            <strong id="leave-calculated-days" style="font-size: 1.05rem; color: var(--primary); margin-left: 0.5rem;">1 day(s)</strong>
+                        </div>
+
+                        <div class="form-group form-grid-full">
+                            <label for="leave-reason-text" class="form-label">Reason / Justification <span class="required-star">*</span></label>
+                            <textarea id="leave-reason-text" class="form-control" rows="3" required placeholder="Provide clear reason for absence..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn-leave-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Review Leave Modal (HR / Admin) -->
+    <div id="modal-review-leave" class="modal-overlay">
+        <div class="modal-card" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Review Leave Application</h3>
+                <button class="modal-close" id="modal-review-close">&times;</button>
+            </div>
+            <form id="form-review-leave">
+                <div class="modal-body">
+                    <input type="hidden" id="review-leave-id">
+
+                    <div style="background-color: var(--navy-50); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; font-size: 0.88rem;">
+                        <div style="margin-bottom: 0.35rem;"><span style="color: var(--navy-500);">Applicant:</span> <strong id="review-emp-name">—</strong></div>
+                        <div style="margin-bottom: 0.35rem;"><span style="color: var(--navy-500);">Period:</span> <strong id="review-leave-dates">—</strong></div>
+                        <div><span style="color: var(--navy-500);">Reason:</span> <em id="review-leave-reason">—</em></div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.25rem;">
+                        <label for="review-decision-select" class="form-label">Review Decision <span class="required-star">*</span></label>
+                        <select id="review-decision-select" class="form-control" required>
+                            <option value="Approved">Approve Application</option>
+                            <option value="Rejected">Reject Application</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-comments" class="form-label">Reviewer Comments / Remarks</label>
+                        <textarea id="review-comments" class="form-control" rows="2" placeholder="Optional notes back to employee..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn-review-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Confirm Decision</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/leave-management.js"></script>
+</body>
+</html>

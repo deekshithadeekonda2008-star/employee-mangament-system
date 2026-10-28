@@ -1,0 +1,170 @@
+/* ==============================================================================
+   EMPLOYEE MANAGEMENT SYSTEM (EMS) - RESPONSIVE STYLES
+   Mobile, Tablet & Desktop Viewport Adaptations
+   ============================================================================== */
+
+/* Backdrop overlay for mobile sidebar drawer */
+.sidebar-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 95;
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.sidebar-backdrop.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Tablet Breakpoint (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .activity-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile Breakpoint (max-width: 768px) */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .main-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .btn-mobile-toggle {
+        display: block;
+    }
+
+    .topbar {
+        padding: 0 1.25rem;
+    }
+
+    .content-body {
+        padding: 1.25rem;
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-banner-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem;
+    }
+
+    .profile-banner-left {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .filter-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-group-left {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        max-width: none;
+        min-width: 0;
+    }
+
+    .quick-actions-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .quick-action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .quick-action-buttons .btn {
+        width: 100%;
+    }
+
+    .modal-card {
+        margin: 1rem;
+        max-height: 85vh;
+    }
+}
+
+/* Small Smartphone Breakpoint (max-width: 480px) */
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .topbar-right .system-status-indicator {
+        display: none;
+    }
+
+    .page-title {
+        font-size: 1.15rem;
+    }
+}
+
+/* Print Media Styles */
+@media print {
+    .sidebar,
+    .topbar,
+    .filter-toolbar,
+    .quick-actions-bar,
+    .btn,
+    .modal-overlay,
+    .toast-container {
+        display: none !important;
+    }
+
+    .main-wrapper {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .content-body {
+        padding: 0 !important;
+    }
+
+    .card {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    body {
+        background-color: #fff !important;
+        color: #000 !important;
+    }
+}

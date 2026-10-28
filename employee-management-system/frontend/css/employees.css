@@ -1,0 +1,260 @@
+/* ==============================================================================
+   EMPLOYEE MANAGEMENT SYSTEM (EMS) - EMPLOYEES & DETAILS STYLES
+   ============================================================================== */
+
+/* Filter Controls Toolbar */
+.filter-toolbar {
+    background-color: var(--white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--navy-200);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filter-group-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.search-box {
+    position: relative;
+    min-width: 260px;
+    flex: 1;
+    max-width: 360px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--navy-400);
+    font-size: 0.95rem;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.55rem 0.85rem 0.55rem 2.4rem;
+    border: 1px solid var(--navy-300);
+    border-radius: var(--radius-md);
+    font-size: 0.88rem;
+    color: var(--navy-800);
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.search-box input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.filter-select {
+    padding: 0.55rem 2rem 0.55rem 0.85rem;
+    border: 1px solid var(--navy-300);
+    border-radius: var(--radius-md);
+    font-size: 0.88rem;
+    color: var(--navy-700);
+    background-color: var(--white);
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.65rem center;
+    background-size: 1rem;
+    transition: border-color var(--transition-fast);
+}
+
+.filter-select:focus {
+    border-color: var(--primary);
+}
+
+/* Employee Table Row Presentation */
+.emp-cell-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.emp-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    background-color: var(--navy-100);
+    border: 2px solid var(--white);
+    box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
+}
+
+.emp-avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.emp-meta-name {
+    font-weight: 600;
+    color: var(--navy-900);
+    font-size: 0.92rem;
+}
+
+.emp-meta-code {
+    font-size: 0.76rem;
+    color: var(--navy-500);
+}
+
+/* Employee Details Page Layout */
+.profile-banner-card {
+    background-color: var(--white);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--navy-200);
+    box-shadow: var(--shadow-sm);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.profile-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.profile-banner-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    border: 3px solid var(--primary-light);
+    box-shadow: var(--shadow-md);
+}
+
+.profile-banner-avatar-placeholder {
+    width: 88px;
+    height: 88px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-900) 100%);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.profile-banner-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.profile-banner-role {
+    font-size: 0.95rem;
+    color: var(--navy-600);
+    margin-bottom: 0.5rem;
+}
+
+.profile-banner-badges {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.profile-banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Tabs System */
+.details-tabs-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 2px solid var(--navy-200);
+    margin-bottom: 1.75rem;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.4rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--navy-500);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all var(--transition-fast);
+}
+
+.tab-btn:hover {
+    color: var(--navy-900);
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Profile Info Fields Grid */
+.info-fields-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.info-field-item {
+    background-color: var(--navy-50);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--navy-200);
+}
+
+.info-field-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--navy-500);
+    margin-bottom: 0.25rem;
+}
+
+.info-field-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--navy-900);
+    word-break: break-word;
+}

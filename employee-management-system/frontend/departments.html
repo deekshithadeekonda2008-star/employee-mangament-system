@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departments Management - Employee Management System</title>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- App Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">
+                    <div class="brand-icon"><i class="fa-solid fa-users-gear"></i></div>
+                    <span>EmployEase</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">General</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fa-solid fa-gauge-high"></i> Dashboard
+                </a>
+                <a href="employees.html" class="nav-link">
+                    <i class="fa-solid fa-id-card"></i> Employees
+                </a>
+                <a href="departments.html" class="nav-link active">
+                    <i class="fa-solid fa-sitemap"></i> Departments
+                </a>
+
+                <div class="nav-section-label">Operations</div>
+                <a href="attendance.html" class="nav-link">
+                    <i class="fa-solid fa-calendar-check"></i> Attendance
+                </a>
+                <a href="leave-management.html" class="nav-link">
+                    <i class="fa-solid fa-umbrella-beach"></i> Leave Management
+                </a>
+                <a href="payroll.html" class="nav-link">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Payroll
+                </a>
+
+                <div class="nav-section-label">Analytics & User</div>
+                <a href="reports.html" class="nav-link">
+                    <i class="fa-solid fa-chart-pie"></i> Reports
+                </a>
+                <a href="profile.html" class="nav-link">
+                    <i class="fa-solid fa-user-gear"></i> My Profile
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-badge-compact">
+                    <div class="user-avatar-sm">U</div>
+                    <div class="user-info-text">
+                        <div class="user-name">Loading...</div>
+                        <div class="user-role-label">Role</div>
+                    </div>
+                </div>
+                <button class="btn-sidebar-logout" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Top Navigation Bar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="btn-mobile-toggle" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">Departments Directory</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <button id="btn-add-dept" class="btn btn-primary">
+                        <i class="fa-solid fa-plus"></i> New Department
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <main class="content-body">
+                <!-- Search & Filters Toolbar -->
+                <div class="filter-toolbar">
+                    <div class="filter-group-left">
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="dept-search" placeholder="Search departments by name or description...">
+                        </div>
+
+                        <select id="dept-filter-status" class="filter-select">
+                            <option value="">All Statuses</option>
+                            <option value="true">Active Departments</option>
+                            <option value="false">Inactive Departments</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Departments Card Grid -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem;" id="departments-grid">
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add / Edit Department Modal -->
+    <div id="modal-department" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-dept-title">Add Department</h3>
+                <button class="modal-close" id="modal-dept-close">&times;</button>
+            </div>
+            <form id="form-department">
+                <div class="modal-body">
+                    <input type="hidden" id="dept-id-field">
+
+                    <div class="form-grid form-grid-1col">
+                        <div class="form-group">
+                            <label for="dept-name" class="form-label">Department Name <span class="required-star">*</span></label>
+                            <input type="text" id="dept-name" class="form-control" required placeholder="e.g. Research & Development">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dept-head-select" class="form-label">Department Head / Lead</label>
+                            <select id="dept-head-select" class="form-control">
+                                <option value="">None (Unassigned)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dept-status" class="form-label">Status</label>
+                            <select id="dept-status" class="form-control">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dept-desc" class="form-label">Description</label>
+                            <textarea id="dept-desc" class="form-control" rows="3" placeholder="Outline the organizational mandate, scope, and responsibilities..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn-dept-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Department</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Members Modal -->
+    <div id="modal-dept-members" class="modal-overlay">
+        <div class="modal-card" style="max-width: 720px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-members-dept-name">Department Members</h3>
+                <button class="modal-close" id="modal-members-close">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 0;">
+                <div class="table-responsive" style="border: none; border-radius: 0;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>ID</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dept-members-table-body">
+                            <tr><td colspan="4" style="text-align: center; padding: 2rem;"><div class="spinner"></div></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('modal-dept-members').classList.remove('active')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/departments.js"></script>
+</body>
+</html>

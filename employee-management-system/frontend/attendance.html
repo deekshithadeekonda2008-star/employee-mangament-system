@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Tracking - Employee Management System</title>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- App Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">
+                    <div class="brand-icon"><i class="fa-solid fa-users-gear"></i></div>
+                    <span>EmployEase</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">General</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fa-solid fa-gauge-high"></i> Dashboard
+                </a>
+                <a href="employees.html" class="nav-link">
+                    <i class="fa-solid fa-id-card"></i> Employees
+                </a>
+                <a href="departments.html" class="nav-link">
+                    <i class="fa-solid fa-sitemap"></i> Departments
+                </a>
+
+                <div class="nav-section-label">Operations</div>
+                <a href="attendance.html" class="nav-link active">
+                    <i class="fa-solid fa-calendar-check"></i> Attendance
+                </a>
+                <a href="leave-management.html" class="nav-link">
+                    <i class="fa-solid fa-umbrella-beach"></i> Leave Management
+                </a>
+                <a href="payroll.html" class="nav-link">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Payroll
+                </a>
+
+                <div class="nav-section-label">Analytics & User</div>
+                <a href="reports.html" class="nav-link">
+                    <i class="fa-solid fa-chart-pie"></i> Reports
+                </a>
+                <a href="profile.html" class="nav-link">
+                    <i class="fa-solid fa-user-gear"></i> My Profile
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-badge-compact">
+                    <div class="user-avatar-sm">U</div>
+                    <div class="user-info-text">
+                        <div class="user-name">Loading...</div>
+                        <div class="user-role-label">Role</div>
+                    </div>
+                </div>
+                <button class="btn-sidebar-logout" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="btn-mobile-toggle" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">Attendance Tracking</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <button id="btn-manual-attendance" class="btn btn-secondary">
+                        <i class="fa-solid fa-pen-to-square"></i> Log Attendance
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <main class="content-body">
+                <!-- Daily Shift Punch In / Out Widget -->
+                <div class="card" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem;">
+                    <div>
+                        <h3 style="font-size: 1.15rem; color: var(--navy-900); margin-bottom: 0.35rem;">Today's Daily Time Record</h3>
+                        <div id="my-attendance-status-banner">
+                            <span class="badge badge-neutral">Checking attendance status...</span>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 0.75rem;">
+                        <button id="btn-check-in" class="btn btn-success" disabled>
+                            <i class="fa-solid fa-right-to-bracket"></i> Clock In
+                        </button>
+                        <button id="btn-check-out" class="btn btn-primary" disabled>
+                            <i class="fa-solid fa-right-from-bracket"></i> Clock Out
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filters Toolbar -->
+                <div class="filter-toolbar">
+                    <div class="filter-group-left">
+                        <div class="form-group" style="margin: 0;">
+                            <input type="date" id="filter-attendance-date" class="form-control" style="min-width: 160px;">
+                        </div>
+
+                        <select id="filter-attendance-status" class="filter-select">
+                            <option value="">All Statuses</option>
+                            <option value="Present">Present</option>
+                            <option value="Late">Late</option>
+                            <option value="Half-day">Half-day</option>
+                            <option value="Leave">Leave</option>
+                            <option value="Absent">Absent</option>
+                        </select>
+
+                        <select id="filter-attendance-emp" class="filter-select">
+                            <option value="">All Staff</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Attendance Table -->
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Date</th>
+                                    <th>Clock In</th>
+                                    <th>Clock Out</th>
+                                    <th>Status</th>
+                                    <th>Duration</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendance-table-body">
+                                <tr><td colspan="7" style="text-align: center; padding: 2rem;"><div class="spinner"></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Manual Log / Adjust Attendance Modal -->
+    <div id="modal-manual-attendance" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-att-title">Log Attendance Record</h3>
+                <button class="modal-close" id="modal-attendance-close">&times;</button>
+            </div>
+            <form id="form-manual-attendance">
+                <div class="modal-body">
+                    <input type="hidden" id="manual-att-id">
+
+                    <div class="form-grid">
+                        <div class="form-group form-grid-full">
+                            <label for="manual-att-employee" class="form-label">Employee <span class="required-star">*</span></label>
+                            <select id="manual-att-employee" class="form-control" required>
+                                <option value="" disabled selected>Select Employee</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group form-grid-full">
+                            <label for="manual-att-date" class="form-label">Attendance Date <span class="required-star">*</span></label>
+                            <input type="date" id="manual-att-date" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="manual-att-in" class="form-label">Check-in Time (HH:MM:SS)</label>
+                            <input type="time" step="1" id="manual-att-in" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="manual-att-out" class="form-label">Check-out Time (HH:MM:SS)</label>
+                            <input type="time" step="1" id="manual-att-out" class="form-control">
+                        </div>
+
+                        <div class="form-group form-grid-full">
+                            <label for="manual-att-status" class="form-label">Status <span class="required-star">*</span></label>
+                            <select id="manual-att-status" class="form-control" required>
+                                <option value="Present">Present</option>
+                                <option value="Late">Late</option>
+                                <option value="Half-day">Half-day</option>
+                                <option value="Leave">Leave</option>
+                                <option value="Absent">Absent</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group form-grid-full">
+                            <label for="manual-att-remarks" class="form-label">Notes / Remarks</label>
+                            <input type="text" id="manual-att-remarks" class="form-control" placeholder="e.g. Field assignment or verified sick absence">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn-attendance-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/attendance.js"></script>
+</body>
+</html>

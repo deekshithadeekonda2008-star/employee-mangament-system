@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Employee Management System</title>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- App Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/employees.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">
+                    <div class="brand-icon"><i class="fa-solid fa-users-gear"></i></div>
+                    <span>EmployEase</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">General</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fa-solid fa-gauge-high"></i> Dashboard
+                </a>
+                <a href="employees.html" class="nav-link">
+                    <i class="fa-solid fa-id-card"></i> Employees
+                </a>
+                <a href="departments.html" class="nav-link">
+                    <i class="fa-solid fa-sitemap"></i> Departments
+                </a>
+
+                <div class="nav-section-label">Operations</div>
+                <a href="attendance.html" class="nav-link">
+                    <i class="fa-solid fa-calendar-check"></i> Attendance
+                </a>
+                <a href="leave-management.html" class="nav-link">
+                    <i class="fa-solid fa-umbrella-beach"></i> Leave Management
+                </a>
+                <a href="payroll.html" class="nav-link">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Payroll
+                </a>
+
+                <div class="nav-section-label">Analytics & User</div>
+                <a href="reports.html" class="nav-link">
+                    <i class="fa-solid fa-chart-pie"></i> Reports
+                </a>
+                <a href="profile.html" class="nav-link active">
+                    <i class="fa-solid fa-user-gear"></i> My Profile
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-badge-compact">
+                    <div class="user-avatar-sm">U</div>
+                    <div class="user-info-text">
+                        <div class="user-name">Loading...</div>
+                        <div class="user-role-label">Role</div>
+                    </div>
+                </div>
+                <button class="btn-sidebar-logout" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="btn-mobile-toggle" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">User Account & Profile</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <button class="btn btn-outline-danger btn-logout">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <main class="content-body" style="max-width: 900px; margin: 0 auto;">
+                <!-- Profile Banner Card -->
+                <div class="profile-banner-card">
+                    <div class="profile-banner-left">
+                        <div id="my-profile-avatar-wrap">
+                            <div class="profile-banner-avatar-placeholder" id="my-avatar-placeholder">U</div>
+                        </div>
+                        <div class="profile-banner-info">
+                            <h2 id="my-display-name">Loading Profile...</h2>
+                            <div class="profile-banner-role" id="my-sub-role">System User</div>
+                            <div class="profile-banner-badges">
+                                <span class="badge badge-info" id="my-role-badge">Role</span>
+                                <span class="badge badge-success" id="my-status-badge">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Form Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Editable Personal Contact Information</h3>
+                        <span style="font-size: 0.78rem; color: var(--navy-500);"><i class="fa-solid fa-lock"></i> Protected organizational fields are locked</span>
+                    </div>
+
+                    <form id="form-my-profile">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="profile-name-input" class="form-label">Full Display Name <span class="required-star">*</span></label>
+                                <input type="text" id="profile-name-input" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profile-phone-input" class="form-label">Contact Phone Number</label>
+                                <input type="text" id="profile-phone-input" class="form-control" placeholder="+1 (555) 000-0000">
+                            </div>
+
+                            <div class="form-group form-grid-full">
+                                <label for="profile-photo-input" class="form-label">Profile Photo URL</label>
+                                <input type="url" id="profile-photo-input" class="form-control" placeholder="https://images.unsplash.com/...">
+                            </div>
+
+                            <div class="form-group form-grid-full">
+                                <label for="profile-address-input" class="form-label">Residential Address</label>
+                                <textarea id="profile-address-input" class="form-control" rows="2" placeholder="Street, City, State, Zip"></textarea>
+                            </div>
+
+                            <!-- Read-only Restricted Fields -->
+                            <div class="form-group">
+                                <label class="form-label">Email Account (Auth Credential)</label>
+                                <input type="email" id="profile-email-read" class="form-control" readonly disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Assigned Role</label>
+                                <input type="text" id="profile-role-read" class="form-control" readonly disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Employee ID Code</label>
+                                <input type="text" id="profile-code-read" class="form-control" readonly disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Department</label>
+                                <input type="text" id="profile-dept-read" class="form-control" readonly disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Official Job Title</label>
+                                <input type="text" id="profile-job-read" class="form-control" readonly disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Date of Joining</label>
+                                <input type="text" id="profile-joining-read" class="form-control" readonly disabled>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 2rem; display: flex; justify-content: flex-end; gap: 0.75rem;">
+                            <button type="submit" id="btn-save-profile" class="btn btn-primary">
+                                <i class="fa-solid fa-floppy-disk"></i> Save Profile Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            Auth.guard();
+            await loadProfileData();
+
+            const form = document.getElementById('form-my-profile');
+            if (form) form.addEventListener('submit', handleProfileUpdate);
+        });
+
+        async function loadProfileData() {
+            try {
+                const response = await API.get('/profile');
+                if (response.success && response.data?.profile) {
+                    const p = response.data.profile;
+                    const emp = p.employee;
+
+                    document.getElementById('my-display-name').textContent = p.display_name || p.email;
+                    document.getElementById('my-sub-role').textContent = emp ? `${emp.job_title} • ${emp.departments?.name || 'General'}` : p.role;
+                    document.getElementById('my-role-badge').textContent = p.role;
+                    document.getElementById('my-status-badge').textContent = emp ? emp.employment_status : 'Active';
+
+                    const avatarWrap = document.getElementById('my-profile-avatar-wrap');
+                    if (emp && emp.profile_photo_url) {
+                        avatarWrap.innerHTML = `<img src="${emp.profile_photo_url}" class="profile-banner-avatar" alt="Photo" onerror="this.outerHTML='<div class=\\'profile-banner-avatar-placeholder\\'>${p.display_name.charAt(0)}</div>'">`;
+                    } else {
+                        avatarWrap.innerHTML = `<div class="profile-banner-avatar-placeholder">${(p.display_name || p.email).charAt(0).toUpperCase()}</div>`;
+                    }
+
+                    // Editable fields
+                    document.getElementById('profile-name-input').value = p.display_name || '';
+                    document.getElementById('profile-phone-input').value = emp ? (emp.phone || '') : '';
+                    document.getElementById('profile-photo-input').value = emp ? (emp.profile_photo_url || '') : '';
+                    document.getElementById('profile-address-input').value = emp ? (emp.address || '') : '';
+
+                    // Read-only fields
+                    document.getElementById('profile-email-read').value = p.email || 'N/A';
+                    document.getElementById('profile-role-read').value = p.role || 'N/A';
+                    document.getElementById('profile-code-read').value = emp ? emp.employee_code : 'N/A (Admin User)';
+                    document.getElementById('profile-dept-read').value = emp ? (emp.departments?.name || 'General') : 'Administration';
+                    document.getElementById('profile-job-read').value = emp ? emp.job_title : 'System Administrator';
+                    document.getElementById('profile-joining-read').value = emp ? formatDate(emp.joining_date) : 'N/A';
+                }
+            } catch (err) {
+                showToast('error', 'Profile Error', err.message || 'Error fetching user profile.');
+            }
+        }
+
+        async function handleProfileUpdate(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('btn-save-profile');
+            submitBtn.disabled = true;
+
+            const payload = {
+                display_name: document.getElementById('profile-name-input').value.trim(),
+                phone: document.getElementById('profile-phone-input').value.trim(),
+                profile_photo_url: document.getElementById('profile-photo-input').value.trim(),
+                address: document.getElementById('profile-address-input').value.trim()
+            };
+
+            try {
+                const response = await API.put('/profile', payload);
+                showToast('success', 'Profile Updated', 'Your profile updates have been saved.');
+                // Update local session
+                if (response.data?.profile) {
+                    const currentStored = Auth.getCurrentUser() || {};
+                    localStorage.setItem(CONFIG.STORAGE_KEYS.USER, JSON.stringify({
+                        ...currentStored,
+                        display_name: response.data.profile.display_name
+                    }));
+                }
+                await loadProfileData();
+            } catch (err) {
+                showToast('error', 'Update Failed', err.message || 'Error updating profile.');
+            } finally {
+                submitBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

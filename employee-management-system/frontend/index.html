@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System (EMS)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        // Immediate redirect based on session state
+        const token = localStorage.getItem('ems_access_token');
+        if (token) {
+            window.location.replace('dashboard.html');
+        } else {
+            window.location.replace('login.html');
+        }
+    </script>
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background-color: var(--navy-900);">
+    <div style="text-align: center; color: var(--white);">
+        <div class="spinner" style="border-top-color: var(--primary); margin: 0 auto 1.5rem auto;"></div>
+        <h2 style="color: var(--white); margin-bottom: 0.5rem;">EmployEase EMS</h2>
+        <p style="color: var(--navy-400); margin-bottom: 1.5rem;">Initializing enterprise workspace session...</p>
+        <div style="display: flex; gap: 0.75rem; justify-content: center;">
+            <a href="login.html" class="btn btn-primary">Go to Login</a>
+            <a href="dashboard.html" class="btn btn-secondary">Go to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

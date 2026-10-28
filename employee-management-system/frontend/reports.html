@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Workforce Analytics - Employee Management System</title>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- App Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">
+                    <div class="brand-icon"><i class="fa-solid fa-users-gear"></i></div>
+                    <span>EmployEase</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">General</div>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fa-solid fa-gauge-high"></i> Dashboard
+                </a>
+                <a href="employees.html" class="nav-link">
+                    <i class="fa-solid fa-id-card"></i> Employees
+                </a>
+                <a href="departments.html" class="nav-link">
+                    <i class="fa-solid fa-sitemap"></i> Departments
+                </a>
+
+                <div class="nav-section-label">Operations</div>
+                <a href="attendance.html" class="nav-link">
+                    <i class="fa-solid fa-calendar-check"></i> Attendance
+                </a>
+                <a href="leave-management.html" class="nav-link">
+                    <i class="fa-solid fa-umbrella-beach"></i> Leave Management
+                </a>
+                <a href="payroll.html" class="nav-link">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Payroll
+                </a>
+
+                <div class="nav-section-label">Analytics & User</div>
+                <a href="reports.html" class="nav-link active">
+                    <i class="fa-solid fa-chart-pie"></i> Reports
+                </a>
+                <a href="profile.html" class="nav-link">
+                    <i class="fa-solid fa-user-gear"></i> My Profile
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-badge-compact">
+                    <div class="user-avatar-sm">U</div>
+                    <div class="user-info-text">
+                        <div class="user-name">Loading...</div>
+                        <div class="user-role-label">Role</div>
+                    </div>
+                </div>
+                <button class="btn-sidebar-logout" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="btn-mobile-toggle" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">Workforce Reports & Audits</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <button id="btn-print-report" class="btn btn-secondary">
+                        <i class="fa-solid fa-print"></i> Print View
+                    </button>
+                    <button id="btn-export-csv" class="btn btn-primary">
+                        <i class="fa-solid fa-file-arrow-down"></i> Export to CSV
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <main class="content-body">
+                <!-- Report Selection and Filter Controls Toolbar -->
+                <div class="filter-toolbar">
+                    <div class="filter-group-left">
+                        <div class="form-group" style="margin: 0; min-width: 240px;">
+                            <select id="report-type-select" class="filter-select" style="font-weight: 600; color: var(--primary);">
+                                <option value="employees">1. Employee Directory & Status Report</option>
+                                <option value="attendance">2. Attendance Log & Working Hours Report</option>
+                                <option value="leaves">3. Leave Applications & Review Report</option>
+                                <option value="payroll">4. Payroll Compensation Summary Report</option>
+                            </select>
+                        </div>
+
+                        <select id="report-filter-dept" class="filter-select">
+                            <option value="">All Departments</option>
+                        </select>
+
+                        <div class="form-group" style="margin: 0; display: flex; align-items: center; gap: 0.4rem;">
+                            <label for="report-filter-start" style="font-size: 0.78rem; color: var(--navy-500); font-weight: 600;">From:</label>
+                            <input type="date" id="report-filter-start" class="form-control" style="padding: 0.45rem 0.65rem; font-size: 0.82rem;">
+                        </div>
+
+                        <div class="form-group" style="margin: 0; display: flex; align-items: center; gap: 0.4rem;">
+                            <label for="report-filter-end" style="font-size: 0.78rem; color: var(--navy-500); font-weight: 600;">To:</label>
+                            <input type="date" id="report-filter-end" class="form-control" style="padding: 0.45rem 0.65rem; font-size: 0.82rem;">
+                        </div>
+
+                        <button id="btn-run-report" class="btn btn-secondary btn-sm">
+                            <i class="fa-solid fa-arrows-rotate"></i> Apply Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Active Report Header Card -->
+                <div class="card" style="margin-bottom: 1.25rem; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h2 style="font-size: 1.25rem; color: var(--navy-900);" id="active-report-title">Employee Directory Report</h2>
+                        <p style="font-size: 0.82rem; color: var(--navy-500);">Data generated dynamically via backend REST API</p>
+                    </div>
+                    <span class="badge badge-info" id="report-records-count" style="font-size: 0.85rem; padding: 0.35rem 0.75rem;">
+                        0 records
+                    </span>
+                </div>
+
+                <!-- Report Table -->
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead id="report-table-head">
+                                <tr><th>Loading...</th></tr>
+                            </thead>
+                            <tbody id="report-table-body">
+                                <tr><td style="text-align: center; padding: 2rem;"><div class="spinner"></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/reports.js"></script>
+</body>
+</html>

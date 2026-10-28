@@ -1,0 +1,186 @@
+/* ==============================================================================
+   EMPLOYEE MANAGEMENT SYSTEM (EMS) - FORMS & CONTROLS STYLES
+   ============================================================================== */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+.form-grid-1col {
+    grid-template-columns: 1fr;
+}
+
+.form-grid-full {
+    grid-column: 1 / -1;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.form-label {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--navy-800);
+}
+
+.form-label .required-star {
+    color: var(--danger);
+    margin-left: 0.15rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.88rem;
+    color: var(--navy-800);
+    background-color: var(--white);
+    border: 1px solid var(--navy-300);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: var(--navy-100);
+    color: var(--navy-500);
+    cursor: not-allowed;
+    border-color: var(--navy-200);
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+}
+
+select.form-control {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    padding-right: 2.2rem;
+}
+
+.form-hint {
+    font-size: 0.75rem;
+    color: var(--navy-500);
+}
+
+.form-error-feedback {
+    font-size: 0.75rem;
+    color: var(--danger);
+    font-weight: 500;
+    display: none;
+}
+
+.form-group.has-error .form-control {
+    border-color: var(--danger);
+}
+
+.form-group.has-error .form-error-feedback {
+    display: block;
+}
+
+/* Authentication Page Form Styles */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+    padding: 1.5rem;
+}
+
+.auth-card {
+    background-color: var(--white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    width: 100%;
+    max-width: 440px;
+    padding: 2.5rem;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-logo-badge {
+    width: 54px;
+    height: 54px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    font-size: 1.6rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem auto;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+.auth-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy-900);
+    margin-bottom: 0.35rem;
+}
+
+.auth-subtitle {
+    font-size: 0.88rem;
+    color: var(--navy-500);
+}
+
+.auth-demo-credentials {
+    background-color: var(--navy-50);
+    border: 1px solid var(--navy-200);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+}
+
+.auth-demo-title {
+    font-weight: 700;
+    color: var(--navy-700);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.demo-account-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.demo-pill {
+    background-color: var(--white);
+    border: 1px solid var(--navy-300);
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.74rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--navy-700);
+    transition: all var(--transition-fast);
+}
+
+.demo-pill:hover {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary);
+}

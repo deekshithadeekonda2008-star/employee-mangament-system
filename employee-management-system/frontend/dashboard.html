@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Employee Management System</title>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <!-- App Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">
+                    <div class="brand-icon"><i class="fa-solid fa-users-gear"></i></div>
+                    <span>EmployEase</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">General</div>
+                <a href="dashboard.html" class="nav-link active">
+                    <i class="fa-solid fa-gauge-high"></i> Dashboard
+                </a>
+                <a href="employees.html" class="nav-link">
+                    <i class="fa-solid fa-id-card"></i> Employees
+                </a>
+                <a href="departments.html" class="nav-link">
+                    <i class="fa-solid fa-sitemap"></i> Departments
+                </a>
+
+                <div class="nav-section-label">Operations</div>
+                <a href="attendance.html" class="nav-link">
+                    <i class="fa-solid fa-calendar-check"></i> Attendance
+                </a>
+                <a href="leave-management.html" class="nav-link">
+                    <i class="fa-solid fa-umbrella-beach"></i> Leave Management
+                </a>
+                <a href="payroll.html" class="nav-link">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Payroll
+                </a>
+
+                <div class="nav-section-label">Analytics & User</div>
+                <a href="reports.html" class="nav-link">
+                    <i class="fa-solid fa-chart-pie"></i> Reports
+                </a>
+                <a href="profile.html" class="nav-link">
+                    <i class="fa-solid fa-user-gear"></i> My Profile
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-badge-compact">
+                    <div class="user-avatar-sm">U</div>
+                    <div class="user-info-text">
+                        <div class="user-name">Loading...</div>
+                        <div class="user-role-label">Role</div>
+                    </div>
+                </div>
+                <button class="btn-sidebar-logout" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Top Navigation Bar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="btn-mobile-toggle" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">Enterprise Dashboard</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="system-status-indicator">
+                        <span class="status-dot"></span>
+                        <span>API Connected</span>
+                    </div>
+
+                    <a href="profile.html" class="user-profile-menu">
+                        <div class="user-avatar-sm" style="width: 32px; height: 32px; font-size: 0.8rem; background-color: var(--primary);">U</div>
+                        <span class="user-name" style="color: var(--navy-800); font-size: 0.88rem;">Profile</span>
+                    </a>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <main class="content-body">
+                <!-- Quick Actions Bar -->
+                <div class="quick-actions-bar">
+                    <div class="quick-actions-title">
+                        <i class="fa-solid fa-bolt" style="color: var(--primary);"></i>
+                        <span>Workflow Quick Actions</span>
+                    </div>
+                    <div class="quick-action-buttons">
+                        <a href="employees.html" class="btn btn-primary btn-sm">
+                            <i class="fa-solid fa-user-plus"></i> Add Employee
+                        </a>
+                        <a href="attendance.html" class="btn btn-secondary btn-sm">
+                            <i class="fa-solid fa-clock"></i> Mark Attendance
+                        </a>
+                        <a href="leave-management.html" class="btn btn-secondary btn-sm">
+                            <i class="fa-solid fa-calendar-plus"></i> Request Leave
+                        </a>
+                        <a href="payroll.html" class="btn btn-secondary btn-sm">
+                            <i class="fa-solid fa-receipt"></i> Process Payroll
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 7 Metric Cards Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <span class="metric-label">Total Staff</span>
+                            <span class="metric-value" id="metric-total-employees">0</span>
+                        </div>
+                        <div class="metric-icon-wrap metric-icon-blue">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <span class="metric-label">Active Staff</span>
+                            <span class="metric-value" id="metric-active-employees">0</span>
+                        </div>
+                        <div class="metric-icon-wrap metric-icon-green">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <span class="metric-label">Inactive Staff</span>
+                            <span class="metric-value" id="metric-inactive-employees">0</span>
+                        </div>
+                        <div class="metric-icon-wrap metric-icon-red">
+                            <i class="fa-solid fa-user-slash"></i>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <span class="metric-label">On Leave</span>
+                            <span class="metric-value" id="metric-onleave-employees">0</span>
+                        </div>
+                        <div class="metric-icon-wrap metric-icon-purple">
+                            <i class="fa-solid fa-umbrella-beach"></i>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <span class="metric-label">Departments</span>
+                            <span class="metric-value" id="metric-total-departments">0</span>
+                        </div>
+                        <div class="metric-icon-wrap metric-icon-cyan">
+                            <i class="fa-solid fa-sitemap"></i>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <span class="metric-label">Today Present</span>
+                            <span class="metric-value" id="metric-today-attendance">0</span>
+                        </div>
+                        <div class="metric-icon-wrap metric-icon-green">
+                            <i class="fa-solid fa-clipboard-user"></i>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <span class="metric-label">Pending Leaves</span>
+                            <span class="metric-value" id="metric-pending-leaves">0</span>
+                        </div>
+                        <div class="metric-icon-wrap metric-icon-orange">
+                            <i class="fa-solid fa-hourglass-half"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 Interactive Charts Grid -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Staff by Department</h3>
+                            <i class="fa-solid fa-chart-column" style="color: var(--navy-400);"></i>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart-dept-distribution"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Employee Joining Trends</h3>
+                            <i class="fa-solid fa-chart-line" style="color: var(--navy-400);"></i>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart-joining-trends"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Today's Attendance Breakdown</h3>
+                            <i class="fa-solid fa-chart-pie" style="color: var(--navy-400);"></i>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart-attendance-summary"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Leave Request Status Distribution</h3>
+                            <i class="fa-solid fa-chart-pie" style="color: var(--navy-400);"></i>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart-leave-distribution"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity 3-Column Section -->
+                <div class="activity-grid">
+                    <!-- Recently Added Employees -->
+                    <div class="activity-card">
+                        <div class="activity-header">
+                            <h3 class="activity-title"><i class="fa-solid fa-user-plus" style="color: var(--primary); margin-right: 0.4rem;"></i> New Hires</h3>
+                            <a href="employees.html" style="font-size: 0.8rem; font-weight: 600;">View All</a>
+                        </div>
+                        <ul class="activity-list" id="recent-employees-list">
+                            <li class="activity-text-sub" style="text-align: center; padding: 1.5rem;"><div class="spinner"></div></li>
+                        </ul>
+                    </div>
+
+                    <!-- Recent Attendance Activity -->
+                    <div class="activity-card">
+                        <div class="activity-header">
+                            <h3 class="activity-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--success); margin-right: 0.4rem;"></i> Today's Check-ins</h3>
+                            <a href="attendance.html" style="font-size: 0.8rem; font-weight: 600;">View All</a>
+                        </div>
+                        <ul class="activity-list" id="recent-attendance-list">
+                            <li class="activity-text-sub" style="text-align: center; padding: 1.5rem;"><div class="spinner"></div></li>
+                        </ul>
+                    </div>
+
+                    <!-- Pending Leave Requests -->
+                    <div class="activity-card">
+                        <div class="activity-header">
+                            <h3 class="activity-title"><i class="fa-solid fa-envelope-open-text" style="color: var(--warning); margin-right: 0.4rem;"></i> Actionable Leaves</h3>
+                            <a href="leave-management.html" style="font-size: 0.8rem; font-weight: 600;">Queue</a>
+                        </div>
+                        <ul class="activity-list" id="recent-leaves-list">
+                            <li class="activity-text-sub" style="text-align: center; padding: 1.5rem;"><div class="spinner"></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

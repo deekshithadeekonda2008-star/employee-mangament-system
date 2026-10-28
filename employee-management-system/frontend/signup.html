@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management - Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .signup-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 320px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #1e40af;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-box">
+        <h2>Create Account</h2>
+
+        <form id="signupForm">
+            <input id="fullName" type="text"
+                   placeholder="Full Name" required>
+
+            <input id="email" type="email"
+                   placeholder="Email Address" required>
+
+            <input id="password" type="password"
+                   placeholder="Password" minlength="6" required>
+
+            <input id="confirmPassword" type="password"
+                   placeholder="Confirm Password" minlength="6" required>
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <p id="message" role="status"></p>
+
+        <p>Already have an account?
+            <a href="login.html">Login</a>
+        </p>
+    </div>
+
+    <script type="module">
+        import { createClient } from
+            "https://esm.sh/@supabase/supabase-js@2";
+
+        // Replace these with your actual Supabase project details.
+        const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
+        const SUPABASE_PUBLISHABLE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
+
+        const supabase = createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+                );
+
+        const form = document.getElementById("signupForm");
+        const message = document.getElementById("message");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const fullName =
+                document.getElementById("fullName").value.trim();
+            const email =
+                document.getElementById("email").value.trim();
+            const password =
+                document.getElementById("password").value;
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                message.textContent = "Passwords do not match.";
+                return;
+            }
+
+            message.textContent = "Creating account...";
+
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: { full_name: fullName }
+                }
+            
+            });
+
+            if (error) {
+                message.textContent = error.message;
+                return;
+            }
+
+            message.textContent = data.session
+                ? "Account created successfully! You can now log in."
+                : "Registration submitted. Check your email to confirm your account.";
+
+            form.reset();
+        });
+    </script>
+</body>
+</html>
